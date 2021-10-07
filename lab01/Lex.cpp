@@ -179,11 +179,17 @@ int main(int argc, char* argv[])
 {
     ifstream file(argv[1]);
     string answer;
-    while ((answer = getsym(file)) != "" && file.is_open()){
-        cout << answer <<"\n";
-        if (answer == "Err"){
-            break;
-        }
+    char ch;
+    while (file.get(ch))
+    {
+        cout<<ch;
     }
+    
+    // while ((answer = getsym(file)) != "" && file.is_open()){
+    //     cout << answer <<"\n";
+    //     if (answer == "Err"){
+    //         break;
+    //     }
+    // }
     return 0;
 }
