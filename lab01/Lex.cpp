@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <ctime>
 using namespace std;
 char input[100000];
 int ptr;
@@ -180,9 +181,14 @@ int main(int argc, char* argv[])
     std::ios::sync_with_stdio(false);
     ifstream file(argv[1]);
     string answer;
+    double start = clock();
     while ((answer = getsym(file)) != "" && file.is_open()){
         cout << answer <<"\n";
         if (answer == "Err"){
+            break;
+        }
+        double end = clock();
+        if ((end-start)/CLOCKS_PER_SEC >= 10){
             break;
         }
     }
