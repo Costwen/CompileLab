@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "*.npy": "cpp",
+        "*.conf": "yaml",
+        "*.tcc": "cpp",
+        "iosfwd": "cpp",
+        "streambuf": "cpp"
+    }
+}
