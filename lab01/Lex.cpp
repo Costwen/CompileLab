@@ -112,6 +112,7 @@ string getsym(ifstream& file)
     string answer;
     char ch;
     file.get(ch);
+
     string buf = "";
     while (isSpace(ch)||isNewLine(ch)||isTab(ch)){
         file.get(ch);
@@ -193,8 +194,10 @@ int main(int argc, char* argv[])
 {
     std::ios::sync_with_stdio(false);
     ifstream file(argv[1]);
-    string answer;
+    file >> noskipws;
     start = clock();
+    string answer;
+
     while ((answer = getsym(file)) != "" && file.is_open()){
         cout << answer <<"\n";
         if (answer == "Err"){
