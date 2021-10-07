@@ -5,6 +5,14 @@
 using namespace std;
 char input[100000];
 int ptr;
+double start, t_end;
+void checkTime()
+{
+    t_end = clock();
+    if((t_end-start)/CLOCKS_PER_SEC > 3){
+        exit(0);
+    }
+}
 string reserver(string s){
     if (s == "if"){
         return "If";
@@ -105,11 +113,15 @@ string getsym(ifstream& file)
     char ch;
     file.get(ch);
     string buf = "";
-    while (isSpace(ch)||isNewLine(ch)||isTab(ch)) file.get(ch);
+    while (isSpace(ch)||isNewLine(ch)||isTab(ch)){
+        file.get(ch);
+        checkTime();
+    }
     if (isLetter(ch) || isUnderLine(ch)){ 
         while(isLetter(ch)||isDigit(ch)|| isUnderLine(ch)){
             buf += ch;
             file.get(ch);
+            checkTime();
         }
         file.seekg(-1, ios::cur);
         auto type = reserver(buf);
@@ -124,6 +136,7 @@ string getsym(ifstream& file)
         while (isDigit(ch)){
             buf += ch;
             file.get(ch);
+            checkTime();
         }
         file.seekg(-1, ios::cur);
         answer = "Number(" + buf + ")";
@@ -181,16 +194,13 @@ int main(int argc, char* argv[])
     std::ios::sync_with_stdio(false);
     ifstream file(argv[1]);
     string answer;
-    double start = clock();
+    start = clock();
     while ((answer = getsym(file)) != "" && file.is_open()){
         cout << answer <<"\n";
         if (answer == "Err"){
             break;
         }
-        double end = clock();
-        if ((end-start)/CLOCKS_PER_SEC >= 10){
-            break;
-        }
+        checkTime();
     }
     return 0;
 }
