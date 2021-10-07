@@ -177,19 +177,14 @@ string getsym(ifstream& file)
 }
 int main(int argc, char* argv[])
 {
+    std::ios::sync_with_stdio(false);
     ifstream file(argv[1]);
     string answer;
-    char ch;
-    while (file.get(ch))
-    {
-        cout<<ch;
+    while ((answer = getsym(file)) != "" && file.is_open()){
+        cout << answer <<"\n";
+        if (answer == "Err"){
+            break;
+        }
     }
-    
-    // while ((answer = getsym(file)) != "" && file.is_open()){
-    //     cout << answer <<"\n";
-    //     if (answer == "Err"){
-    //         break;
-    //     }
-    // }
     return 0;
 }
