@@ -11,7 +11,7 @@ string reserver(string s){
     if (s == "else"){
         return "Else";
     }
-    if (s == "While"){
+    if (s == "while"){
         return "While";
     }
     if (s == "continue"){
@@ -141,10 +141,10 @@ string getsym(ifstream& file)
         answer = "Plus";
     }
     else if (isLpar(ch)){
-        answer = "Lpar";
+        answer = "LPar";
     }
     else if (isRpar(ch)){
-        answer = "Rpar";
+        answer = "RPar";
     }
     else if (isLBrace(ch)){
         answer = "LBrace";
