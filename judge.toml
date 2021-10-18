@@ -1,6 +1,15 @@
-[jobs.lexer]
-image = { source = "dockerfile", path = "."}
+# [jobs.lexer]
+# image = { source = "dockerfile", path = "."}
+
+# run = [
+#   "./Lex $input",
+# ]
+
+# 一个示例
+[jobs.lab1]
+
+image = { source = "dockerfile", path = "." }
 
 run = [
-  "./Lex $input",
+    "./init $input $ir",
 ]
