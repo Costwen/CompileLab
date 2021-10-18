@@ -9,4 +9,5 @@ WORKDIR /app/
 COPY lab02/parsing ./
 # RUN g++ Lex.cpp -o Lex
 RUN chmod +x init.sh
+RUN javac -cp "./bin:./lib/antlr-4.9-complete.jar" src/App.java
 
