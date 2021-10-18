@@ -9,17 +9,18 @@ import java.io.IOException;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        Runnable runnable = new Runnable(){
-            @Override
-            public void run() {
-                try{
-                    Thread.sleep(1000);
-                    System.exit(0);
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }
-            }
-        };
+
+        // Runnable runnable = new Runnable(){
+        //     @Override
+        //     public void run() {
+        //         try{
+        //             Thread.sleep(1000);
+        //             System.exit(0);
+        //         }catch(InterruptedException e){
+        //             e.printStackTrace();
+        //         }
+        //     }
+        // };
 
         File file = new File(args[0]);
         FileReader r = new FileReader(file);
