@@ -11,5 +11,6 @@
 image = { source = "dockerfile", path = "." }
 
 run = [
+    "ls",
     "./init.sh $input $ir",
 ]
