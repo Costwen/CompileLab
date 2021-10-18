@@ -4,7 +4,7 @@
 # RUN g++ Lex.cpp -o Lex
 # RUN chmod +x Lex
 
-FROM frolvlad/alpine-gxx
+FROM openjdk:11
 WORKDIR /app/
 COPY lab02/parsing ./
 # RUN g++ Lex.cpp -o Lex
