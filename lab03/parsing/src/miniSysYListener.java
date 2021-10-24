@@ -182,4 +182,14 @@ public interface miniSysYListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitUnaryOp(miniSysYParser.UnaryOpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link miniSysYParser#fOp}.
+	 * @param ctx the parse tree
+	 */
+	void enterFOp(miniSysYParser.FOpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link miniSysYParser#fOp}.
+	 * @param ctx the parse tree
+	 */
+	void exitFOp(miniSysYParser.FOpContext ctx);
 }

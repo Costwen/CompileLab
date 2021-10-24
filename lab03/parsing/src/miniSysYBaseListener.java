@@ -202,6 +202,18 @@ public class miniSysYBaseListener implements miniSysYListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitUnaryOp(miniSysYParser.UnaryOpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFOp(miniSysYParser.FOpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFOp(miniSysYParser.FOpContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

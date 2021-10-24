@@ -1,3 +1,3 @@
 int main() {
-    return 1 +-+ (- - -15) / 0x5;
+    return 4 * 1 - 4;
 }

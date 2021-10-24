@@ -1,3 +1,5 @@
+import org.antlr.v4.runtime.ParserRuleContext;
+
 public class Tool {
     static Integer string2int(String number){
         Integer temp;
@@ -12,17 +14,18 @@ public class Tool {
         }
         return temp;
     }
-    static String getOp(org.antlr.v4.runtime.Token op){
-        switch (op.getType()) {
-            case miniSysYParser.Plus:
+    static String getOp(ParserRuleContext op){
+
+        switch (op.getText()) {
+            case "+":
                 return "add";
-            case miniSysYParser.Sub:
+            case "-":
                 return "sub";
-            case miniSysYParser.Mul:
+            case "*":
                 return "mul";
-            case miniSysYParser.Div:
+            case "/":
                 return "sdiv";
-            case miniSysYParser.Mod:
+            case "%":
                 return "srem";
         }
         return null;

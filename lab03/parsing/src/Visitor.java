@@ -68,7 +68,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         String op2 = visit(ctx.mulExp());
         String result = identifier.getRegister(ctx);
         String ty = "i32";
-        String op = Tool.getOp(ctx.op);
+        String op = Tool.getOp(ctx.unaryOp());
         System.out.println(String.format("%s = %s %s %s , %s", result, op, ty, op1, op2));
         
         return identifier.getRegister(ctx);
@@ -87,7 +87,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         String op2 = visit(ctx.unaryExp());
         String result = identifier.getRegister(ctx);
         String ty = "i32";
-        String op = Tool.getOp(ctx.op);
+        String op = Tool.getOp(ctx.fOp());
         System.out.println(String.format("%s = %s %s %s , %s", result, op, ty, op1, op2));
         return identifier.getRegister(ctx);
     }
@@ -105,7 +105,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         String op2 = visit(ctx.unaryExp());
         String result = identifier.getRegister(ctx);
         String ty = "i32";
-        String op = Tool.getOp(ctx.unaryOp().op);
+        String op = Tool.getOp(ctx.unaryOp());
         System.out.println(String.format("%s = %s %s %s , %s", result, op, ty, op1, op2));
         
         return identifier.getRegister(ctx);

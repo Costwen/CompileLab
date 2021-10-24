@@ -44,10 +44,10 @@ stmt:'return' exp ';';
 
 exp: addExp;
 addExp:mulExp  # addExpMulExp
-    |  addExp op=('+' | '−') mulExp #addExpAddExpOpMulExp
+    |  addExp unaryOp mulExp #addExpAddExpOpMulExp
     ; 
 mulExp: unaryExp #mulExpUnaryExp
-    | mulExp op=('*' | '/' | '%') unaryExp #mulExpMulExpOpUnaryExp
+    | mulExp fOp unaryExp #mulExpMulExpOpUnaryExp
     ;
 unaryExp: primaryExp #unaryExpPrimaryExp
         | unaryOp unaryExp #unaryExpUnaryOpUnaryExp
@@ -56,7 +56,7 @@ primaryExp: '(' exp ')' #primaryExpExp
             | Number #primaryNumber
             ;
 unaryOp: op=('+' | '-');
-
+fOp: op=('*' | '/' | '%');
 
 
 COMMENT

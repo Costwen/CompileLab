@@ -16,34 +16,33 @@ public class miniSysYParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, Return=2, LPar=3, RPar=4, Int=5, Main=6, LBrace=7, RBrace=8, Semicolon=9, 
-		Sub=10, Mod=11, Plus=12, Mul=13, Div=14, Number=15, OctalConst=16, DecimalConst=17, 
-		HexaDecimalConst=18, WS=19, Space=20, COMMENT=21, LINE_COMMENT=22;
+		Return=1, LPar=2, RPar=3, Int=4, Main=5, LBrace=6, RBrace=7, Semicolon=8, 
+		Sub=9, Mod=10, Plus=11, Mul=12, Div=13, Number=14, OctalConst=15, DecimalConst=16, 
+		HexaDecimalConst=17, WS=18, Space=19, COMMENT=20, LINE_COMMENT=21;
 	public static final int
 		RULE_compUnit = 0, RULE_funcDef = 1, RULE_funcType = 2, RULE_ident = 3, 
 		RULE_block = 4, RULE_stmt = 5, RULE_exp = 6, RULE_addExp = 7, RULE_mulExp = 8, 
-		RULE_unaryExp = 9, RULE_primaryExp = 10, RULE_unaryOp = 11;
+		RULE_unaryExp = 9, RULE_primaryExp = 10, RULE_unaryOp = 11, RULE_fOp = 12;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"compUnit", "funcDef", "funcType", "ident", "block", "stmt", "exp", "addExp", 
-			"mulExp", "unaryExp", "primaryExp", "unaryOp"
+			"mulExp", "unaryExp", "primaryExp", "unaryOp", "fOp"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'\u2212'", "'return'", "'('", "')'", "'int'", "'main'", "'{'", 
-			"'}'", "';'", "'-'", "'%'", "'+'", "'*'", "'/'", null, null, null, null, 
-			null, "' '"
+			null, "'return'", "'('", "')'", "'int'", "'main'", "'{'", "'}'", "';'", 
+			"'-'", "'%'", "'+'", "'*'", "'/'", null, null, null, null, null, "' '"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, "Return", "LPar", "RPar", "Int", "Main", "LBrace", "RBrace", 
-			"Semicolon", "Sub", "Mod", "Plus", "Mul", "Div", "Number", "OctalConst", 
-			"DecimalConst", "HexaDecimalConst", "WS", "Space", "COMMENT", "LINE_COMMENT"
+			null, "Return", "LPar", "RPar", "Int", "Main", "LBrace", "RBrace", "Semicolon", 
+			"Sub", "Mod", "Plus", "Mul", "Div", "Number", "OctalConst", "DecimalConst", 
+			"HexaDecimalConst", "WS", "Space", "COMMENT", "LINE_COMMENT"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -126,7 +125,7 @@ public class miniSysYParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(24);
+			setState(26);
 			funcDef();
 			}
 		}
@@ -178,15 +177,15 @@ public class miniSysYParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(26);
-			funcType();
-			setState(27);
-			ident();
 			setState(28);
-			match(LPar);
+			funcType();
 			setState(29);
-			match(RPar);
+			ident();
 			setState(30);
+			match(LPar);
+			setState(31);
+			match(RPar);
+			setState(32);
 			block();
 			}
 		}
@@ -228,7 +227,7 @@ public class miniSysYParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(32);
+			setState(34);
 			match(Int);
 			}
 		}
@@ -270,7 +269,7 @@ public class miniSysYParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(34);
+			setState(36);
 			match(Main);
 			}
 		}
@@ -316,11 +315,11 @@ public class miniSysYParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(36);
-			match(LBrace);
-			setState(37);
-			stmt();
 			setState(38);
+			match(LBrace);
+			setState(39);
+			stmt();
+			setState(40);
 			match(RBrace);
 			}
 		}
@@ -366,11 +365,11 @@ public class miniSysYParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(40);
-			match(Return);
-			setState(41);
-			exp();
 			setState(42);
+			match(Return);
+			setState(43);
+			exp();
+			setState(44);
 			match(Semicolon);
 			}
 		}
@@ -414,7 +413,7 @@ public class miniSysYParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(44);
+			setState(46);
 			addExp(0);
 			}
 		}
@@ -460,14 +459,15 @@ public class miniSysYParser extends Parser {
 		}
 	}
 	public static class AddExpAddExpOpMulExpContext extends AddExpContext {
-		public Token op;
 		public AddExpContext addExp() {
 			return getRuleContext(AddExpContext.class,0);
+		}
+		public UnaryOpContext unaryOp() {
+			return getRuleContext(UnaryOpContext.class,0);
 		}
 		public MulExpContext mulExp() {
 			return getRuleContext(MulExpContext.class,0);
 		}
-		public TerminalNode Plus() { return getToken(miniSysYParser.Plus, 0); }
 		public AddExpAddExpOpMulExpContext(AddExpContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -495,7 +495,6 @@ public class miniSysYParser extends Parser {
 		AddExpContext _prevctx = _localctx;
 		int _startState = 14;
 		enterRecursionRule(_localctx, 14, RULE_addExp, _p);
-		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
@@ -505,11 +504,11 @@ public class miniSysYParser extends Parser {
 			_ctx = _localctx;
 			_prevctx = _localctx;
 
-			setState(47);
+			setState(49);
 			mulExp(0);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(54);
+			setState(57);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -520,25 +519,16 @@ public class miniSysYParser extends Parser {
 					{
 					_localctx = new AddExpAddExpOpMulExpContext(new AddExpContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_addExp);
-					setState(49);
-					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
-					setState(50);
-					((AddExpAddExpOpMulExpContext)_localctx).op = _input.LT(1);
-					_la = _input.LA(1);
-					if ( !(_la==T__0 || _la==Plus) ) {
-						((AddExpAddExpOpMulExpContext)_localctx).op = (Token)_errHandler.recoverInline(this);
-					}
-					else {
-						if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-						_errHandler.reportMatch(this);
-						consume();
-					}
 					setState(51);
+					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
+					setState(52);
+					unaryOp();
+					setState(53);
 					mulExp(0);
 					}
 					} 
 				}
-				setState(56);
+				setState(59);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 			}
@@ -567,16 +557,15 @@ public class miniSysYParser extends Parser {
 		}
 	}
 	public static class MulExpMulExpOpUnaryExpContext extends MulExpContext {
-		public Token op;
 		public MulExpContext mulExp() {
 			return getRuleContext(MulExpContext.class,0);
+		}
+		public FOpContext fOp() {
+			return getRuleContext(FOpContext.class,0);
 		}
 		public UnaryExpContext unaryExp() {
 			return getRuleContext(UnaryExpContext.class,0);
 		}
-		public TerminalNode Mul() { return getToken(miniSysYParser.Mul, 0); }
-		public TerminalNode Div() { return getToken(miniSysYParser.Div, 0); }
-		public TerminalNode Mod() { return getToken(miniSysYParser.Mod, 0); }
 		public MulExpMulExpOpUnaryExpContext(MulExpContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
@@ -623,7 +612,6 @@ public class miniSysYParser extends Parser {
 		MulExpContext _prevctx = _localctx;
 		int _startState = 16;
 		enterRecursionRule(_localctx, 16, RULE_mulExp, _p);
-		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
@@ -633,11 +621,11 @@ public class miniSysYParser extends Parser {
 			_ctx = _localctx;
 			_prevctx = _localctx;
 
-			setState(58);
+			setState(61);
 			unaryExp();
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(65);
+			setState(69);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -648,25 +636,16 @@ public class miniSysYParser extends Parser {
 					{
 					_localctx = new MulExpMulExpOpUnaryExpContext(new MulExpContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_mulExp);
-					setState(60);
+					setState(63);
 					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
-					setState(61);
-					((MulExpMulExpOpUnaryExpContext)_localctx).op = _input.LT(1);
-					_la = _input.LA(1);
-					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Mod) | (1L << Mul) | (1L << Div))) != 0)) ) {
-						((MulExpMulExpOpUnaryExpContext)_localctx).op = (Token)_errHandler.recoverInline(this);
-					}
-					else {
-						if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-						_errHandler.reportMatch(this);
-						consume();
-					}
-					setState(62);
+					setState(64);
+					fOp();
+					setState(65);
 					unaryExp();
 					}
 					} 
 				}
-				setState(67);
+				setState(71);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
 			}
@@ -740,7 +719,7 @@ public class miniSysYParser extends Parser {
 		UnaryExpContext _localctx = new UnaryExpContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_unaryExp);
 		try {
-			setState(72);
+			setState(76);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LPar:
@@ -748,7 +727,7 @@ public class miniSysYParser extends Parser {
 				_localctx = new UnaryExpPrimaryExpContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(68);
+				setState(72);
 				primaryExp();
 				}
 				break;
@@ -757,9 +736,9 @@ public class miniSysYParser extends Parser {
 				_localctx = new UnaryExpUnaryOpUnaryExpContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(69);
+				setState(73);
 				unaryOp();
-				setState(70);
+				setState(74);
 				unaryExp();
 				}
 				break;
@@ -832,18 +811,18 @@ public class miniSysYParser extends Parser {
 		PrimaryExpContext _localctx = new PrimaryExpContext(_ctx, getState());
 		enterRule(_localctx, 20, RULE_primaryExp);
 		try {
-			setState(79);
+			setState(83);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LPar:
 				_localctx = new PrimaryExpExpContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(74);
+				setState(78);
 				match(LPar);
-				setState(75);
+				setState(79);
 				exp();
-				setState(76);
+				setState(80);
 				match(RPar);
 				}
 				break;
@@ -851,7 +830,7 @@ public class miniSysYParser extends Parser {
 				_localctx = new PrimaryNumberContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(78);
+				setState(82);
 				match(Number);
 				}
 				break;
@@ -900,11 +879,66 @@ public class miniSysYParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(81);
+			setState(85);
 			((UnaryOpContext)_localctx).op = _input.LT(1);
 			_la = _input.LA(1);
 			if ( !(_la==Sub || _la==Plus) ) {
 				((UnaryOpContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class FOpContext extends ParserRuleContext {
+		public Token op;
+		public TerminalNode Mul() { return getToken(miniSysYParser.Mul, 0); }
+		public TerminalNode Div() { return getToken(miniSysYParser.Div, 0); }
+		public TerminalNode Mod() { return getToken(miniSysYParser.Mod, 0); }
+		public FOpContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_fOp; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof miniSysYListener ) ((miniSysYListener)listener).enterFOp(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof miniSysYListener ) ((miniSysYListener)listener).exitFOp(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof miniSysYVisitor ) return ((miniSysYVisitor<? extends T>)visitor).visitFOp(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final FOpContext fOp() throws RecognitionException {
+		FOpContext _localctx = new FOpContext(_ctx, getState());
+		enterRule(_localctx, 24, RULE_fOp);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(87);
+			((FOpContext)_localctx).op = _input.LT(1);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Mod) | (1L << Mul) | (1L << Div))) != 0)) ) {
+				((FOpContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 			}
 			else {
 				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
@@ -949,26 +983,27 @@ public class miniSysYParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\30V\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
-		"\f\t\f\4\r\t\r\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\5\3\5\3\6\3\6"+
-		"\3\6\3\6\3\7\3\7\3\7\3\7\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\7\t\67\n\t\f"+
-		"\t\16\t:\13\t\3\n\3\n\3\n\3\n\3\n\3\n\7\nB\n\n\f\n\16\nE\13\n\3\13\3\13"+
-		"\3\13\3\13\5\13K\n\13\3\f\3\f\3\f\3\f\3\f\5\fR\n\f\3\r\3\r\3\r\2\4\20"+
-		"\22\16\2\4\6\b\n\f\16\20\22\24\26\30\2\5\4\2\3\3\16\16\4\2\r\r\17\20\4"+
-		"\2\f\f\16\16\2M\2\32\3\2\2\2\4\34\3\2\2\2\6\"\3\2\2\2\b$\3\2\2\2\n&\3"+
-		"\2\2\2\f*\3\2\2\2\16.\3\2\2\2\20\60\3\2\2\2\22;\3\2\2\2\24J\3\2\2\2\26"+
-		"Q\3\2\2\2\30S\3\2\2\2\32\33\5\4\3\2\33\3\3\2\2\2\34\35\5\6\4\2\35\36\5"+
-		"\b\5\2\36\37\7\5\2\2\37 \7\6\2\2 !\5\n\6\2!\5\3\2\2\2\"#\7\7\2\2#\7\3"+
-		"\2\2\2$%\7\b\2\2%\t\3\2\2\2&\'\7\t\2\2\'(\5\f\7\2()\7\n\2\2)\13\3\2\2"+
-		"\2*+\7\4\2\2+,\5\16\b\2,-\7\13\2\2-\r\3\2\2\2./\5\20\t\2/\17\3\2\2\2\60"+
-		"\61\b\t\1\2\61\62\5\22\n\2\628\3\2\2\2\63\64\f\3\2\2\64\65\t\2\2\2\65"+
-		"\67\5\22\n\2\66\63\3\2\2\2\67:\3\2\2\28\66\3\2\2\289\3\2\2\29\21\3\2\2"+
-		"\2:8\3\2\2\2;<\b\n\1\2<=\5\24\13\2=C\3\2\2\2>?\f\3\2\2?@\t\3\2\2@B\5\24"+
-		"\13\2A>\3\2\2\2BE\3\2\2\2CA\3\2\2\2CD\3\2\2\2D\23\3\2\2\2EC\3\2\2\2FK"+
-		"\5\26\f\2GH\5\30\r\2HI\5\24\13\2IK\3\2\2\2JF\3\2\2\2JG\3\2\2\2K\25\3\2"+
-		"\2\2LM\7\5\2\2MN\5\16\b\2NO\7\6\2\2OR\3\2\2\2PR\7\21\2\2QL\3\2\2\2QP\3"+
-		"\2\2\2R\27\3\2\2\2ST\t\4\2\2T\31\3\2\2\2\68CJQ";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\27\\\4\2\t\2\4\3"+
+		"\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13"+
+		"\4\f\t\f\4\r\t\r\4\16\t\16\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\5"+
+		"\3\5\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3"+
+		"\t\7\t:\n\t\f\t\16\t=\13\t\3\n\3\n\3\n\3\n\3\n\3\n\3\n\7\nF\n\n\f\n\16"+
+		"\nI\13\n\3\13\3\13\3\13\3\13\5\13O\n\13\3\f\3\f\3\f\3\f\3\f\5\fV\n\f\3"+
+		"\r\3\r\3\16\3\16\3\16\2\4\20\22\17\2\4\6\b\n\f\16\20\22\24\26\30\32\2"+
+		"\4\4\2\13\13\r\r\4\2\f\f\16\17\2R\2\34\3\2\2\2\4\36\3\2\2\2\6$\3\2\2\2"+
+		"\b&\3\2\2\2\n(\3\2\2\2\f,\3\2\2\2\16\60\3\2\2\2\20\62\3\2\2\2\22>\3\2"+
+		"\2\2\24N\3\2\2\2\26U\3\2\2\2\30W\3\2\2\2\32Y\3\2\2\2\34\35\5\4\3\2\35"+
+		"\3\3\2\2\2\36\37\5\6\4\2\37 \5\b\5\2 !\7\4\2\2!\"\7\5\2\2\"#\5\n\6\2#"+
+		"\5\3\2\2\2$%\7\6\2\2%\7\3\2\2\2&\'\7\7\2\2\'\t\3\2\2\2()\7\b\2\2)*\5\f"+
+		"\7\2*+\7\t\2\2+\13\3\2\2\2,-\7\3\2\2-.\5\16\b\2./\7\n\2\2/\r\3\2\2\2\60"+
+		"\61\5\20\t\2\61\17\3\2\2\2\62\63\b\t\1\2\63\64\5\22\n\2\64;\3\2\2\2\65"+
+		"\66\f\3\2\2\66\67\5\30\r\2\678\5\22\n\28:\3\2\2\29\65\3\2\2\2:=\3\2\2"+
+		"\2;9\3\2\2\2;<\3\2\2\2<\21\3\2\2\2=;\3\2\2\2>?\b\n\1\2?@\5\24\13\2@G\3"+
+		"\2\2\2AB\f\3\2\2BC\5\32\16\2CD\5\24\13\2DF\3\2\2\2EA\3\2\2\2FI\3\2\2\2"+
+		"GE\3\2\2\2GH\3\2\2\2H\23\3\2\2\2IG\3\2\2\2JO\5\26\f\2KL\5\30\r\2LM\5\24"+
+		"\13\2MO\3\2\2\2NJ\3\2\2\2NK\3\2\2\2O\25\3\2\2\2PQ\7\4\2\2QR\5\16\b\2R"+
+		"S\7\5\2\2SV\3\2\2\2TV\7\20\2\2UP\3\2\2\2UT\3\2\2\2V\27\3\2\2\2WX\t\2\2"+
+		"\2X\31\3\2\2\2YZ\t\3\2\2Z\33\3\2\2\2\6;GNU";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
