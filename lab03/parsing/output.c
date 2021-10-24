@@ -1,3 +1,6 @@
+int main() {
+    return 1 +-+ (- - -15) / 0x5;
+}
 define dso_local i32 @main (){
 %x0 = sub i32 0 , %x15
 %x1 = sub i32 0 , %x0
