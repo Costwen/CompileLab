@@ -18,7 +18,7 @@ public class miniSysYParser extends Parser {
 	public static final int
 		Return=1, LPar=2, RPar=3, Int=4, Main=5, LBrace=6, RBrace=7, Semicolon=8, 
 		Sub=9, Mod=10, Plus=11, Mul=12, Div=13, Number=14, OctalConst=15, DecimalConst=16, 
-		HexaDecimalConst=17, WS=18, Space=19, COMMENT=20, LINE_COMMENT=21;
+		HexaDecimalConst=17, Whitespace=18, Newline=19, BlockComment=20, LineComment=21;
 	public static final int
 		RULE_compUnit = 0, RULE_funcDef = 1, RULE_funcType = 2, RULE_ident = 3, 
 		RULE_block = 4, RULE_stmt = 5, RULE_exp = 6, RULE_addExp = 7, RULE_mulExp = 8, 
@@ -34,7 +34,7 @@ public class miniSysYParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'return'", "'('", "')'", "'int'", "'main'", "'{'", "'}'", "';'", 
-			"'-'", "'%'", "'+'", "'*'", "'/'", null, null, null, null, null, "' '"
+			"'-'", "'%'", "'+'", "'*'", "'/'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -42,7 +42,7 @@ public class miniSysYParser extends Parser {
 		return new String[] {
 			null, "Return", "LPar", "RPar", "Int", "Main", "LBrace", "RBrace", "Semicolon", 
 			"Sub", "Mod", "Plus", "Mul", "Div", "Number", "OctalConst", "DecimalConst", 
-			"HexaDecimalConst", "WS", "Space", "COMMENT", "LINE_COMMENT"
+			"HexaDecimalConst", "Whitespace", "Newline", "BlockComment", "LineComment"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();

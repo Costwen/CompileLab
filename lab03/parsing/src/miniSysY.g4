@@ -32,8 +32,7 @@ DecimalConst: '0'|[1-9][0-9]+;
 
 HexaDecimalConst: '0'[(x|X)]([0-9]|[a-f]|[A-F])+;
 
-WS: [\t\n\r] -> skip ;
-Space: ' ' -> skip;
+
 
 compUnit: funcDef;
 funcDef: funcType ident '(' ')' block;
@@ -58,11 +57,23 @@ primaryExp: '(' exp ')' #primaryExpExp
 unaryOp: op=('+' | '-');
 fOp: op=('*' | '/' | '%');
 
+Whitespace
+    :   [ \t]+
+        -> skip
+    ;
 
-COMMENT
-    : '/*' .*? '*/' -> skip
-;
+Newline
+    :   (   '\r' '\n'?
+        |   '\n'
+        )
+        -> skip
+    ;
+BlockComment
+    :   '/*' .*? '*/'
+        -> skip
+    ;
 
-LINE_COMMENT
-    : '//'.*? '\n' -> skip
-;
+LineComment
+    :   '//' ~[\r\n]*
+        -> skip
+    ;
