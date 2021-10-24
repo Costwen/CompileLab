@@ -28,7 +28,7 @@ Number: DecimalConst | OctalConst | HexaDecimalConst;
 
 OctalConst: [0-7]+;
 
-DecimalConst: '0'|[1-9][0-9]+;
+DecimalConst: '0'|[1-9][0-9]*;
 
 HexaDecimalConst: '0'[(x|X)]([0-9]|[a-f]|[A-F])+;
 
