@@ -1,5 +1,3 @@
-import org.antlr.runtime.Token;
-
 public class Tool {
     static Integer string2int(String number){
         Integer temp;
