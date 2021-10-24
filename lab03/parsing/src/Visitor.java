@@ -28,7 +28,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         // TODO Auto-generated method stub
         visit(ctx.exp());
         System.out.print("ret i32 ");
-        System.out.println(identifier.getName(ctx.exp()));
+        System.out.println(identifier.getRegister(ctx.exp()));
         return null;
     }
     @Override
@@ -50,13 +50,15 @@ public class Visitor extends miniSysYBaseVisitor<String> {
     @Override
     public String visitExp(miniSysYParser.ExpContext ctx) {
         // TODO Auto-generated method stub
-        return visit(ctx.addExp());
+        identifier.setRegister(ctx, visit(ctx.addExp()));
+        return identifier.getRegister(ctx);
     }
 
     @Override
     public String visitAddExpMulExp(miniSysYParser.AddExpMulExpContext ctx) {
         // TODO Auto-generated method stub
-        return visit(ctx.mulExp());
+        identifier.setRegister(ctx, visit(ctx.mulExp()));
+        return identifier.getRegister(ctx);
     }
 
     @Override
@@ -64,34 +66,36 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         // TODO Auto-generated method stub
         String op1 = visit(ctx.addExp());
         String op2 = visit(ctx.mulExp());
-        String result = identifier.getName(ctx);
+        String result = identifier.getRegister(ctx);
         String ty = "i32";
         String op = Tool.getOp(ctx.op);
         System.out.println(String.format("%s = %s %s %s , %s", result, op, ty, op1, op2));
         
-        return identifier.getName(ctx);
+        return identifier.getRegister(ctx);
     }
 
     @Override
     public String visitMulExpUnaryExp(miniSysYParser.MulExpUnaryExpContext ctx) {
         // TODO Auto-generated method stub
-        return visit(ctx.unaryExp());
+        identifier.setRegister(ctx, visit(ctx.unaryExp()));
+        return identifier.getRegister(ctx);
     }
     @Override
     public String visitMulExpMulExpOpUnaryExp(miniSysYParser.MulExpMulExpOpUnaryExpContext ctx) {
         // TODO Auto-generated method stub
         String op1 = visit(ctx.mulExp());
         String op2 = visit(ctx.unaryExp());
-        String result = identifier.getName(ctx);
+        String result = identifier.getRegister(ctx);
         String ty = "i32";
         String op = Tool.getOp(ctx.op);
         System.out.println(String.format("%s = %s %s %s , %s", result, op, ty, op1, op2));
-        return identifier.getName(ctx);
+        return identifier.getRegister(ctx);
     }
 
     @Override
     public String visitUnaryExpPrimaryExp(miniSysYParser.UnaryExpPrimaryExpContext ctx) {
-        return visit(ctx.primaryExp());
+        identifier.setRegister(ctx, visit(ctx.primaryExp()));
+        return identifier.getRegister(ctx);
     }
 
     @Override
@@ -99,18 +103,19 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         // TODO Auto-generated method stub
         String op1 = "0";
         String op2 = visit(ctx.unaryExp());
-        String result = identifier.getName(ctx);
+        String result = identifier.getRegister(ctx);
         String ty = "i32";
         String op = Tool.getOp(ctx.unaryOp().op);
         System.out.println(String.format("%s = %s %s %s , %s", result, op, ty, op1, op2));
         
-        return identifier.getName(ctx);
+        return identifier.getRegister(ctx);
     }
 
     @Override
     public String visitPrimaryExpExp(miniSysYParser.PrimaryExpExpContext ctx) {
         // TODO Auto-generated method stub
-        return visit(ctx.exp());
+        identifier.setRegister(ctx, visit(ctx.exp()));
+        return identifier.getRegister(ctx);
     }
     @Override
     public String visitPrimaryNumber(miniSysYParser.PrimaryNumberContext ctx) {
@@ -120,6 +125,6 @@ public class Visitor extends miniSysYBaseVisitor<String> {
     @Override
     public String visitUnaryOp(miniSysYParser.UnaryOpContext ctx) {
         // TODO Auto-generated method stub
-        return super.visitUnaryOp(ctx);
+        return null;
     }
 }
