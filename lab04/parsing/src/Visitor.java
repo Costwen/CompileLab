@@ -7,6 +7,9 @@ public class Visitor extends miniSysYBaseVisitor<String> {
      * compUnit: funcDef;
      */
     public String loadIdent(String reg1){
+        if (!identifier.isIdentReg(reg1)){
+            return reg1;
+        }
         var reg2 = identifier.getTempRegister();
         Output.load(reg2, reg1);
         return reg2;
@@ -46,6 +49,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         }
         String reg1 = visit(ctx.lVal());
         String reg2 = visit(ctx.exp());
+        reg2 = loadIdent(reg2);
         Output.store(reg2, reg1);
         return null;
     }
@@ -59,9 +63,8 @@ public class Visitor extends miniSysYBaseVisitor<String> {
     public String visitStmtReturnExp(miniSysYParser.StmtReturnExpContext ctx) {
         // TODO Auto-generated method stub
         var reg = visit(ctx.exp());
-        if (identifier.isIdentReg(reg)){
-            reg = loadIdent(reg);
-        }
+        reg = loadIdent(reg);
+
         Output.ret(reg);
         return null;
     }
@@ -115,12 +118,8 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         // TODO Auto-generated method stub
         String op1 = visit(ctx.addExp());
         String op2 = visit(ctx.mulExp());
-        if (identifier.isIdentReg(op1)){
-            op1 = loadIdent(op1);
-        }
-        if (identifier.isIdentReg(op2)){
-            op2 = loadIdent(op2);
-        }
+        op1 = loadIdent(op1);
+        op2 = loadIdent(op2);
         String result = identifier.getRegister(ctx);
         String ty = "i32";
         String op = Tool.getOp(ctx.unaryOp());
@@ -142,12 +141,8 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         // TODO Auto-generated method stub
         String op1 = visit(ctx.mulExp());
         String op2 = visit(ctx.unaryExp());
-        if (identifier.isIdentReg(op1)){
-            op1 = loadIdent(op1);
-        }
-        if (identifier.isIdentReg(op2)){
-            op2 = loadIdent(op2);
-        }
+        op1 = loadIdent(op1);
+        op2 = loadIdent(op2);
         String result = identifier.getRegister(ctx);
         String ty = "i32";
         String op = Tool.getOp(ctx.fOp());
@@ -171,12 +166,8 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         // TODO Auto-generated method stub
         String op1 = "0";
         String op2 = visit(ctx.unaryExp());
-        if (identifier.isIdentReg(op1)){
-            op1 = loadIdent(op1);
-        }
-        if (identifier.isIdentReg(op2)){
-            op2 = loadIdent(op2);
-        }
+        op1 = loadIdent(op1);
+        op2 = loadIdent(op2);
         String result = identifier.getRegister(ctx);
         String ty = "i32";
         String op = Tool.getOp(ctx.unaryOp());
@@ -190,9 +181,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         String func = ctx.Ident().getText();
         for (var chd: ctx.exp()){
             var reg = visit(chd);
-            if (identifier.isIdentReg(reg)){
-                reg = loadIdent(reg);
-            }
+            reg = loadIdent(reg);
             list.add(reg);
         }
         if (!Tool.checkFunc(func, list.size())){
@@ -276,6 +265,8 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         String reg1 = identifier.alloca(ident);
         Output.alloca(reg1); 
         String reg2 = visit(ctx.initVal()); 
+        reg2 = loadIdent(reg2);
+
         Output.store(reg2, reg1);
         return null;
     }
@@ -309,6 +300,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         String reg1 = identifier.alloca(ident);
         Output.alloca(reg1); 
         String reg2 = visit(ctx.constInitVal()); 
+        reg2 = loadIdent(reg2);
         Output.store(reg2, reg1);
         return null;
     }
