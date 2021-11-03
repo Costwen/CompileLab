@@ -18,6 +18,9 @@ public class Visitor extends miniSysYBaseVisitor<String> {
     @Override
     public String visitCompUnit(miniSysYParser.CompUnitContext ctx) {
         // TODO Auto-generated method stub
+        for (var func: Tool.getFunctype().keySet()){
+            Output.declare(func);
+        }
         visit(ctx.funcDef());
         return null;
     }

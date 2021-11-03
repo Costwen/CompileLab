@@ -30,4 +30,14 @@ public class Output {
         }
         println(")");
     }
+    public static void declare(String func){
+        String funcType = Tool.getFunctype().get(func);
+        if (funcType.equals("void")){
+            println("declare %s @%s(i32)", funcType, func);
+        }
+        else{
+            println("declare %s @%s()", funcType, func);
+        }
+
+    }
 }

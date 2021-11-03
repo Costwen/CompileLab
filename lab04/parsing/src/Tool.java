@@ -10,19 +10,19 @@ public class Tool {
         entry("putint", 1),
         entry("putch", 1)
         );
-    public static Map<String, Integer> getFunclength() {
-        return funcLength;
-    }
-    public static Map<String, String> getFunctype() {
-        return funcType;
-    }
+
     private static final Map<String, String> funcType = Map.ofEntries(
             entry("getint", "i32"),
             entry("getch", "i32"),
             entry("putint", "void"),
             entry("putch", "void")
             );
-        
+    public static Map<String, Integer> getFunclength() {
+        return funcLength;
+    }
+    public static Map<String, String> getFunctype() {
+        return funcType;
+    }
     static Integer string2int(String number){
         Integer temp;
         if (number.startsWith("0x")||number.startsWith("0X")){
