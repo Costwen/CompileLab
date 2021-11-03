@@ -6,7 +6,7 @@
 
 FROM openjdk:11
 WORKDIR /app/
-COPY lab03/parsing ./
+COPY lab04/parsing ./
 # RUN g++ Lex.cpp -o Lex
 RUN chmod 777 *
 RUN javac -cp "./bin:./lib/antlr-4.9-complete.jar" -d "./bin" src/*.java
