@@ -11,6 +11,9 @@ public class Visitor extends miniSysYBaseVisitor<String> {
             return reg1;
         }
         var reg2 = identifier.getTempRegister();
+        if (identifier.isConst(reg1)){
+            identifier.addConstSet(reg2);
+        }
         Output.load(reg2, reg1);
         return reg2;
     }
@@ -47,7 +50,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
     @Override
     public String visitStmtlVal(miniSysYParser.StmtlValContext ctx) {
         String reg1 = visit(ctx.lVal());
-        if (identifier.isConst(reg1)){
+        if (identifier.isConst(reg1)){  // 左边不能是常量
             System.out.println("left can't be const!");
             System.exit(-1);
         }
@@ -127,6 +130,10 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         
         String ty = "i32";
         String op = Tool.getOp(ctx.unaryOp());
+        if (identifier.isConst(op1) && identifier.isConst(op2)){
+            identifier.addConstSet(result);
+        }
+
         Output.opPrint(result, op, ty, op1, op2);
         return result;
     }
@@ -150,6 +157,9 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         String result = identifier.getRegister(ctx);
         String ty = "i32";
         String op = Tool.getOp(ctx.fOp());
+        if (identifier.isConst(op1) && identifier.isConst(op2)){
+            identifier.addConstSet(result);
+        }
         Output.opPrint(result, op, ty, op1, op2);
         return result;
     }
@@ -175,6 +185,9 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         String result = identifier.getRegister(ctx);
         String ty = "i32";
         String op = Tool.getOp(ctx.unaryOp());
+        if (identifier.isConst(op1) && identifier.isConst(op2)){
+            identifier.addConstSet(result);
+        }
         Output.opPrint(result, op, ty, op1, op2);
         return result;
     }
@@ -303,8 +316,8 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         String reg1 = identifier.alloca(ident);
         identifier.addConstSet(reg1);
         Output.alloca(reg1); 
-        String reg2 = visit(ctx.constInitVal()); 
-        if (!identifier.isConst(reg2)){
+        String reg2 = visit(ctx.constInitVal());  
+        if (!identifier.isConst(reg2)){  // 右边必须是常量
             System.out.println("right is not const!");
             System.exit(-1);
         }

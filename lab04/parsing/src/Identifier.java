@@ -14,6 +14,12 @@ public class Identifier {
         this.constSet = new HashSet<String>();
         this.id = 0;
     }
+    public Set<String> getConstSet() {
+        return constSet;
+    }
+    public void setConstSet(Set<String> constSet) {
+        this.constSet = constSet;
+    }
     public String getRegister(ParserRuleContext ctx){
         if (!this.registerSet.containsKey(ctx)){
             this.registerSet.put(ctx, "%x"+ Integer.toString(this.id));
