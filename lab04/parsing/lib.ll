@@ -1,5 +1,5 @@
-; ModuleID = 'llvm-link'
-source_filename = "llvm-link"
+; ModuleID = 'libsysy.c'
+source_filename = "libsysy.c"
 target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
@@ -8,25 +8,6 @@ target triple = "x86_64-pc-linux-gnu"
 @.str.2 = private unnamed_addr constant [4 x i8] c"%d:\00", align 1
 @.str.3 = private unnamed_addr constant [4 x i8] c" %d\00", align 1
 @.str.4 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
-
-define dso_local i32 @main() {
-  %x0 = alloca i32
-  store i32 0, i32* %x0
-  %x1 = alloca i32
-  store i32 5, i32* %x1
-  %x2 = alloca i32
-  store i32 3, i32* %x2
-  %x3 = alloca i32
-  store i32 5, i32* %x3
-  %x4 = load i32, i32* %x2
-  %x5 = load i32, i32* %x3
-  %x6 = sdiv i32 %x4, %x5
-  %x7 = mul i32 %x6, 0
-  %x8 = load i32, i32* %x1
-  %x9 = sub i32 %x8, %x7
-  store i32 %x9, i32* %x0
-  ret i32 0
-}
 
 ; Function Attrs: noinline nounwind optnone uwtable
 define dso_local i32 @getint() #0 {
@@ -143,8 +124,8 @@ define dso_local void @putarray(i32 %0, i32* %1) #0 {
 attributes #0 = { noinline nounwind optnone uwtable "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "min-legal-vector-width"="0" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
 attributes #1 = { "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "frame-pointer"="all" "less-precise-fpmad"="false" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
 
-!llvm.ident = !{!0}
-!llvm.module.flags = !{!1}
+!llvm.module.flags = !{!0}
+!llvm.ident = !{!1}
 
-!0 = !{!"clang version 10.0.0-4ubuntu1~18.04.2 "}
-!1 = !{i32 1, !"wchar_size", i32 4}
+!0 = !{i32 1, !"wchar_size", i32 4}
+!1 = !{!"clang version 10.0.0-4ubuntu1~18.04.2 "}

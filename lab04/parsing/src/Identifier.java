@@ -41,6 +41,9 @@ public class Identifier {
         this.registerSet.put(ctx, number);
     }
     public String getIdentRegister(String ident){
+        if(!this.identSet.containsKey(ident)){
+            System.exit(-1);
+        }
         return this.identSet.get(ident);
     }
     public boolean hasIdent(String ident){
@@ -52,10 +55,16 @@ public class Identifier {
     public void setIdentRegister(String ident, String register){
         this.identSet.put(ident, register);
     }
-    public void addConstSet(String ident){
-        this.constSet.add(ident);
+    public void addConstSet(String reg){
+        this.constSet.add(reg);
     }
-    public boolean isConst(String ident){
-        return this.constSet.contains(ident);
+    public boolean isConst(String reg){
+        if (!reg.startsWith("%x")){
+            return true;
+        }
+        if (constSet.contains(reg)){
+            return true;
+        }
+        return false;
     }
 }

@@ -1,10 +1,7 @@
-int main() {
-    int a = getch(), b;
-    b = getch();
-    putch(a);
-    putch(b);
-    putch(10);
-    putch(a - 16);
-    putch(b + 6);
-    return 0;
+int main()
+{
+    int a, b;
+    a = 0;
+    b = a;
+    return a;
 }

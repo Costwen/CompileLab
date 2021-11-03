@@ -46,11 +46,11 @@ public class Visitor extends miniSysYBaseVisitor<String> {
      */
     @Override
     public String visitStmtlVal(miniSysYParser.StmtlValContext ctx) {
-        String ident = ctx.lVal().getText();
-        if (identifier.isConst(ident)){
+        String reg1 = visit(ctx.lVal());
+        if (identifier.isConst(reg1)){
+            System.out.println("left can't be const!");
             System.exit(-1);
         }
-        String reg1 = visit(ctx.lVal());
         String reg2 = visit(ctx.exp());
         reg2 = loadIdent(reg2);
         Output.store(reg2, reg1);
@@ -124,6 +124,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         op1 = loadIdent(op1);
         op2 = loadIdent(op2);
         String result = identifier.getRegister(ctx);
+        
         String ty = "i32";
         String op = Tool.getOp(ctx.unaryOp());
         Output.opPrint(result, op, ty, op1, op2);
@@ -269,7 +270,6 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         Output.alloca(reg1); 
         String reg2 = visit(ctx.initVal()); 
         reg2 = loadIdent(reg2);
-
         Output.store(reg2, reg1);
         return null;
     }
@@ -301,8 +301,13 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         // TODO Auto-generated method stub
         var ident = ctx.Ident().getText();
         String reg1 = identifier.alloca(ident);
+        identifier.addConstSet(reg1);
         Output.alloca(reg1); 
         String reg2 = visit(ctx.constInitVal()); 
+        if (!identifier.isConst(reg2)){
+            System.out.println("right is not const!");
+            System.exit(-1);
+        }
         reg2 = loadIdent(reg2);
         Output.store(reg2, reg1);
         return null;
