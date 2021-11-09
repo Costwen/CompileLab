@@ -1,0 +1,19 @@
+{   
+    "getint":{
+        "type": "int",
+        "size": 0
+    },
+    "getch": {
+        "type": "int",
+        "size": 0
+    },
+    "putint": {
+        "type": "void",
+        "size": 1
+    },
+    "putch":{
+        "type": "void",
+        "size": 1
+    }
+    
+}
