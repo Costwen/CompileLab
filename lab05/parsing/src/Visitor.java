@@ -90,6 +90,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         var reg = visit(ctx.exp());
         reg = loadIdent(reg);
         Output.ret(reg);
+        identifier.newRegister("return");
         return null;
     }
 
