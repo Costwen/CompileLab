@@ -203,21 +203,27 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         String op2 = visit(ctx.unaryExp());
         op1 = loadIdent(op1);
         op2 = loadIdent(op2);
-        String op = Tool.getOp(ctx.UnaryOp().getText());    
-        String result = null; 
-        if (ctx.UnaryOp().getText().equals("!")){
-            result = identifier.newRegister("i1");
+        op1 = convert(op1, "i32");
+        op2 = convert(op2, "i32");
+        String op = Tool.getOp(ctx.UnaryOp().getText());
+        if (!ctx.UnaryOp().getText().equals("!")){
+            String result = identifier.newRegister("i32");
+            String ty = identifier.getType(op2);
+            if (identifier.isConst(op1) && identifier.isConst(op2)){
+                identifier.addConstSet(result);
+            }
+            Output.opPrint(result, op, ty, op1, op2);
+            return result;
         }
-        else{
-            result = identifier.newRegister("i32");
+        else {  
+            String result = identifier.newRegister("i1");
+            String ty = identifier.getType(op2);
+            if (identifier.isConst(op1) && identifier.isConst(op2)){
+                identifier.addConstSet(result);
+            }
+            Output.opPrint(result, op, ty, op1, op2);
+            return result;
         }
-        String ty = identifier.getType(op2);
-
-        if (identifier.isConst(op1) && identifier.isConst(op2)){
-            identifier.addConstSet(result);
-        }
-        Output.opPrint(result, op, ty, op1, op2);
-        return result;
     }
     @Override
     public String visitUnaryExpFunc(miniSysYParser.UnaryExpFuncContext ctx) {
