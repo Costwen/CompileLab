@@ -143,6 +143,8 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         String op2 = visit(ctx.mulExp());
         op1 = loadIdent(op1);
         op2 = loadIdent(op2);
+        op1 = convert(op1, "i32");
+        op2 = convert(op2, "i32");
         String result = identifier.newRegister("i32");
         
         String ty = "i32";
@@ -171,6 +173,8 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         String op2 = visit(ctx.unaryExp());
         op1 = loadIdent(op1);
         op2 = loadIdent(op2);
+        op1 = convert(op1, "i32");
+        op2 = convert(op2, "i32");
         String result = identifier.newRegister("i32");
         String ty = "i32";
         String op = Tool.getOp(ctx.FOp().getText());
