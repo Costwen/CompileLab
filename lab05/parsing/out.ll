@@ -11,13 +11,17 @@ target triple = "x86_64-pc-linux-gnu"
 
 define dso_local i32 @main() {
   %1 = alloca i32
-  %2 = icmp eq i32 0, 1
-  %3 = zext i1 %2 to i32
-  %4 = add i32 0, %3
-  %5 = add i32 10, %4
-  store i32 %5, i32* %1
-  %6 = load i32, i32* %1
-  call void @putint(i32 %6)
+  store i32 1, i32* %1
+  %2 = load i32, i32* %1
+  %3 = add i32 %2, 1
+  %4 = icmp ne i32 %3, 0
+  br i1 %4, label %L0, label %L1
+
+L0:                                               ; preds = %0
+  call void @putint(i32 1)
+  br label %L1
+
+L1:                                               ; preds = %L0, %0
   ret i32 0
 }
 

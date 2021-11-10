@@ -423,8 +423,9 @@ public class Visitor extends miniSysYBaseVisitor<String> {
     @Override
     public String visitStmtIfStmt(miniSysYParser.StmtIfStmtContext ctx) {
         // TODO Auto-generated method stub
+        var cond = visit(ctx.cond());
+        cond = convert(cond, "i1");
         if (ctx.Else() != null){
-            var cond = visit(ctx.cond());
             var L1 = identifier.newRegister("label");
             var L2 = identifier.newRegister("label");
             var L3 = identifier.newRegister("label");
@@ -438,7 +439,6 @@ public class Visitor extends miniSysYBaseVisitor<String> {
             Output.label(L3);
         }
         else{
-            var cond = visit(ctx.cond());
             var L1 = identifier.newRegister("label");
             var L2 = identifier.newRegister("label");
             Output.brLabel(cond , L1, L2);
