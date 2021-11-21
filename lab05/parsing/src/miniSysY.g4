@@ -35,6 +35,10 @@ HexaDecimalConst: '0'[(x|X)]([0-9]|[a-f]|[A-F])+;
 
 Ident: [_a-zA-Z][_a-zA-Z0-9]*;
 
+UnaryOp: '+' | '-' | '!';
+FOp: '*' | '/' | '%';
+
+
 decl : constDecl # declConstDecl 
     | varDecl # declVarDecl
     ;
@@ -118,8 +122,7 @@ primaryExp: '(' exp ')' #primaryExpExp
             | number #primaryNumber
             | lVal #primaryLVal
             ;
-UnaryOp: '+' | '-' | '!';
-FOp: '*' | '/' | '%';
+
 
 Whitespace
     :   [ \t]+

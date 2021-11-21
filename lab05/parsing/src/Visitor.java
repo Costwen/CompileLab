@@ -3,7 +3,9 @@ import java.util.LinkedList;
 public class Visitor extends miniSysYBaseVisitor<String> {
     private Identifier identifier = new Identifier();
     /**
-     * compUnit: funcDef;
+     * 要加载的寄存器,如果是i32*类型 将进行加载
+     * @param reg1 
+     * @return
      */
     public String loadIdent(String reg1){
         if (!identifier.isIdentReg(reg1)){
@@ -17,6 +19,12 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         return reg2;
     }
 
+    /**
+     * 将寄存器reg转换到type2类型
+     * @param reg  要转换的寄存器
+     * @param type2 要转换到的类型
+     * @return
+     */
     public String convert(String reg, String type2){
         String type = identifier.getType(reg);
         if (type.equals(type2)){

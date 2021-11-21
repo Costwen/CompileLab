@@ -30,13 +30,13 @@ public class App {
                 e.printStackTrace();    
             }
         }
-        BufferedInputStream fis = new BufferedInputStream(new FileInputStream(file));
-        BufferedReader reader = new BufferedReader(new InputStreamReader(fis,"utf-8"),1024);
-        System.setOut(new PrintStream(outputFile));
-        String str;
-        while((str = reader.readLine()) != null){
-            System.out.print(str);
-        }
+        // BufferedInputStream fis = new BufferedInputStream(new FileInputStream(file));
+        // BufferedReader reader = new BufferedReader(new InputStreamReader(fis,"utf-8"),1024);
+        // System.setOut(new PrintStream(outputFile));
+        // String str;
+        // while((str = reader.readLine()) != null){
+        //     System.out.print(str);
+        // }
         CharStream inputStream = CharStreams.fromReader(r);
         miniSysYLexer lexer = new miniSysYLexer(inputStream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);

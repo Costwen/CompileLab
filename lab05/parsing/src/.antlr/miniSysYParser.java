@@ -18,8 +18,8 @@ public class miniSysYParser extends Parser {
 	public static final int
 		T__0=1, Return=2, LPar=3, RPar=4, Int=5, LBrace=6, RBrace=7, Semicolon=8, 
 		Const=9, Equal=10, If=11, Else=12, AndAnd=13, OrOr=14, OctalConst=15, 
-		DecimalConst=16, HexaDecimalConst=17, Ident=18, CmpOp=19, EqOp=20, UnaryOp=21, 
-		FOp=22, Whitespace=23, Newline=24, BlockComment=25, LineComment=26;
+		DecimalConst=16, HexaDecimalConst=17, Ident=18, UnaryOp=19, FOp=20, CmpOp=21, 
+		EqOp=22, Whitespace=23, Newline=24, BlockComment=25, LineComment=26;
 	public static final int
 		RULE_decl = 0, RULE_number = 1, RULE_constDecl = 2, RULE_bType = 3, RULE_constDef = 4, 
 		RULE_constInitVal = 5, RULE_constExp = 6, RULE_varDecl = 7, RULE_varDef = 8, 
@@ -49,7 +49,7 @@ public class miniSysYParser extends Parser {
 		return new String[] {
 			null, null, "Return", "LPar", "RPar", "Int", "LBrace", "RBrace", "Semicolon", 
 			"Const", "Equal", "If", "Else", "AndAnd", "OrOr", "OctalConst", "DecimalConst", 
-			"HexaDecimalConst", "Ident", "CmpOp", "EqOp", "UnaryOp", "FOp", "Whitespace", 
+			"HexaDecimalConst", "Ident", "UnaryOp", "FOp", "CmpOp", "EqOp", "Whitespace", 
 			"Newline", "BlockComment", "LineComment"
 		};
 	}
@@ -1873,10 +1873,10 @@ public class miniSysYParser extends Parser {
 		"~\3\2\2\2\u0095\u0083\3\2\2\2\u0095\u0085\3\2\2\2\u0095\u0088\3\2\2\2"+
 		"\u0095\u008c\3\2\2\2\u0096!\3\2\2\2\u0097\u0098\5*\26\2\u0098#\3\2\2\2"+
 		"\u0099\u009a\b\23\1\2\u009a\u009b\5\60\31\2\u009b\u00a1\3\2\2\2\u009c"+
-		"\u009d\f\3\2\2\u009d\u009e\7\25\2\2\u009e\u00a0\5\60\31\2\u009f\u009c"+
+		"\u009d\f\3\2\2\u009d\u009e\7\27\2\2\u009e\u00a0\5\60\31\2\u009f\u009c"+
 		"\3\2\2\2\u00a0\u00a3\3\2\2\2\u00a1\u009f\3\2\2\2\u00a1\u00a2\3\2\2\2\u00a2"+
 		"%\3\2\2\2\u00a3\u00a1\3\2\2\2\u00a4\u00a5\b\24\1\2\u00a5\u00a6\5$\23\2"+
-		"\u00a6\u00ac\3\2\2\2\u00a7\u00a8\f\3\2\2\u00a8\u00a9\7\26\2\2\u00a9\u00ab"+
+		"\u00a6\u00ac\3\2\2\2\u00a7\u00a8\f\3\2\2\u00a8\u00a9\7\30\2\2\u00a9\u00ab"+
 		"\5$\23\2\u00aa\u00a7\3\2\2\2\u00ab\u00ae\3\2\2\2\u00ac\u00aa\3\2\2\2\u00ac"+
 		"\u00ad\3\2\2\2\u00ad\'\3\2\2\2\u00ae\u00ac\3\2\2\2\u00af\u00b0\b\25\1"+
 		"\2\u00b0\u00b1\5&\24\2\u00b1\u00b7\3\2\2\2\u00b2\u00b3\f\3\2\2\u00b3\u00b4"+
@@ -1887,18 +1887,18 @@ public class miniSysYParser extends Parser {
 		"\2\2\2\u00c1\u00c4\3\2\2\2\u00c2\u00c0\3\2\2\2\u00c2\u00c3\3\2\2\2\u00c3"+
 		"+\3\2\2\2\u00c4\u00c2\3\2\2\2\u00c5\u00c6\7\24\2\2\u00c6-\3\2\2\2\u00c7"+
 		"\u00c8\5\60\31\2\u00c8/\3\2\2\2\u00c9\u00ca\b\31\1\2\u00ca\u00cb\5\62"+
-		"\32\2\u00cb\u00d1\3\2\2\2\u00cc\u00cd\f\3\2\2\u00cd\u00ce\7\27\2\2\u00ce"+
+		"\32\2\u00cb\u00d1\3\2\2\2\u00cc\u00cd\f\3\2\2\u00cd\u00ce\7\25\2\2\u00ce"+
 		"\u00d0\5\62\32\2\u00cf\u00cc\3\2\2\2\u00d0\u00d3\3\2\2\2\u00d1\u00cf\3"+
 		"\2\2\2\u00d1\u00d2\3\2\2\2\u00d2\61\3\2\2\2\u00d3\u00d1\3\2\2\2\u00d4"+
 		"\u00d5\b\32\1\2\u00d5\u00d6\5\64\33\2\u00d6\u00dc\3\2\2\2\u00d7\u00d8"+
-		"\f\3\2\2\u00d8\u00d9\7\30\2\2\u00d9\u00db\5\64\33\2\u00da\u00d7\3\2\2"+
+		"\f\3\2\2\u00d8\u00d9\7\26\2\2\u00d9\u00db\5\64\33\2\u00da\u00d7\3\2\2"+
 		"\2\u00db\u00de\3\2\2\2\u00dc\u00da\3\2\2\2\u00dc\u00dd\3\2\2\2\u00dd\63"+
 		"\3\2\2\2\u00de\u00dc\3\2\2\2\u00df\u00f0\5\66\34\2\u00e0\u00e1\7\24\2"+
 		"\2\u00e1\u00ea\7\5\2\2\u00e2\u00e7\5.\30\2\u00e3\u00e4\7\3\2\2\u00e4\u00e6"+
 		"\5.\30\2\u00e5\u00e3\3\2\2\2\u00e6\u00e9\3\2\2\2\u00e7\u00e5\3\2\2\2\u00e7"+
 		"\u00e8\3\2\2\2\u00e8\u00eb\3\2\2\2\u00e9\u00e7\3\2\2\2\u00ea\u00e2\3\2"+
 		"\2\2\u00ea\u00eb\3\2\2\2\u00eb\u00ec\3\2\2\2\u00ec\u00f0\7\6\2\2\u00ed"+
-		"\u00ee\7\27\2\2\u00ee\u00f0\5\64\33\2\u00ef\u00df\3\2\2\2\u00ef\u00e0"+
+		"\u00ee\7\25\2\2\u00ee\u00f0\5\64\33\2\u00ef\u00df\3\2\2\2\u00ef\u00e0"+
 		"\3\2\2\2\u00ef\u00ed\3\2\2\2\u00f0\65\3\2\2\2\u00f1\u00f2\7\5\2\2\u00f2"+
 		"\u00f3\5.\30\2\u00f3\u00f4\7\6\2\2\u00f4\u00f8\3\2\2\2\u00f5\u00f8\5\4"+
 		"\3\2\u00f6\u00f8\5,\27\2\u00f7\u00f1\3\2\2\2\u00f7\u00f5\3\2\2\2\u00f7"+
