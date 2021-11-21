@@ -97,7 +97,8 @@ public class Visitor extends miniSysYBaseVisitor<String> {
     @Override
     public String visitStmtExp(miniSysYParser.StmtExpContext ctx) {
         // TODO Auto-generated method stub
-        visit(ctx.exp());
+        if (ctx.exp() != null)
+            visit(ctx.exp());
         return null;
     }
     @Override

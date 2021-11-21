@@ -11,79 +11,109 @@ target triple = "x86_64-pc-linux-gnu"
 
 define dso_local i32 @main() {
   %1 = alloca i32
-  store i32 48, i32* %1
-  %2 = alloca i32
-  store i32 1, i32* %2
-  br label %L0
-
-L0:                                               ; preds = %L15, %L14, %0
-  %3 = load i32, i32* %2
-  %4 = icmp slt i32 %3, 12
-  br i1 %4, label %L1, label %L2
-
-L1:                                               ; preds = %L0
+  %2 = call i32 @getint()
+  store i32 %2, i32* %1
+  %3 = alloca i32
+  store i32 65, i32* %3
+  %4 = alloca i32
+  store i32 67, i32* %4
   %5 = alloca i32
-  store i32 0, i32* %5
+  store i32 87, i32* %5
+  %6 = alloca i32
+  store i32 10, i32* %6
+  %7 = icmp sgt i32 1, 2
+  br i1 %7, label %L0, label %L1
+
+L0:                                               ; preds = %0
   br label %L3
 
-L3:                                               ; preds = %L11, %L1
-  %6 = icmp eq i32 1, 1
-  br i1 %6, label %L4, label %L5
+L3:                                               ; preds = %L4, %L0
+  %8 = icmp eq i32 1, 1
+  br i1 %8, label %L4, label %L5
 
 L4:                                               ; preds = %L3
-  %7 = load i32, i32* %5
-  %8 = srem i32 %7, 3
-  %9 = icmp eq i32 %8, 1
-  br i1 %9, label %L6, label %L7
-
-L6:                                               ; preds = %L4
-  call void @putch(i32 49)
-  br label %L8
-
-L7:                                               ; preds = %L4
-  call void @putch(i32 48)
-  br label %L8
-
-L8:                                               ; preds = %L7, %L6
-  %10 = load i32, i32* %5
-  %11 = add i32 %10, 1
-  store i32 %11, i32* %5
-  %12 = load i32, i32* %2
-  %13 = mul i32 2, %12
-  %14 = sub i32 %13, 1
-  %15 = load i32, i32* %5
-  %16 = icmp sge i32 %15, %14
-  br i1 %16, label %L9, label %L10
-
-L9:                                               ; preds = %L8
-  br label %L12
-
-L12:                                              ; preds = %L9
-  br label %L5
-
-L13:                                              ; No predecessors!
-  br label %L11
-
-L10:                                              ; preds = %L8
-  br label %L11
-
-L11:                                              ; preds = %L10, %L13
   br label %L3
 
-L5:                                               ; preds = %L12, %L3
-  call void @putch(i32 10)
-  %17 = load i32, i32* %2
-  %18 = add i32 %17, 1
-  store i32 %18, i32* %2
-  br label %L14
+L5:                                               ; preds = %L3
+  br label %L2
 
-L14:                                              ; preds = %L5
-  br label %L0
+L1:                                               ; preds = %0
+  br label %L2
 
-L15:                                              ; No predecessors!
-  br label %L0
+L2:                                               ; preds = %L1, %L5
+  %9 = icmp slt i32 1, 2
+  br i1 %9, label %L6, label %L7
 
-L2:                                               ; preds = %L0
+L6:                                               ; preds = %L2
+  %10 = alloca i32
+  store i32 1, i32* %10
+  br label %L9
+
+L9:                                               ; preds = %L10, %L6
+  %11 = load i32, i32* %10
+  %12 = load i32, i32* %1
+  %13 = icmp slt i32 %11, %12
+  br i1 %13, label %L10, label %L11
+
+L10:                                              ; preds = %L9
+  %14 = load i32, i32* %3
+  call void @putch(i32 %14)
+  call void @putch(i32 67)
+  %15 = load i32, i32* %6
+  call void @putch(i32 %15)
+  %16 = load i32, i32* %10
+  %17 = add i32 %16, 1
+  store i32 %17, i32* %10
+  br label %L9
+
+L11:                                              ; preds = %L9
+  br label %L8
+
+L7:                                               ; preds = %L2
+  %18 = alloca i32
+  store i32 1, i32* %18
+  br label %L12
+
+L12:                                              ; preds = %L13, %L7
+  %19 = load i32, i32* %18
+  %20 = load i32, i32* %1
+  %21 = icmp slt i32 %19, %20
+  br i1 %21, label %L13, label %L14
+
+L13:                                              ; preds = %L12
+  %22 = load i32, i32* %5
+  call void @putch(i32 %22)
+  %23 = load i32, i32* %3
+  call void @putch(i32 %23)
+  %24 = load i32, i32* %6
+  call void @putch(i32 %24)
+  br label %L12
+
+L14:                                              ; preds = %L12
+  br label %L8
+
+L8:                                               ; preds = %L14, %L11
+  %25 = alloca i32
+  store i32 1, i32* %25
+  br label %L15
+
+L15:                                              ; preds = %L16, %L8
+  %26 = load i32, i32* %25
+  %27 = load i32, i32* %1
+  %28 = icmp sle i32 %26, %27
+  br i1 %28, label %L16, label %L17
+
+L16:                                              ; preds = %L15
+  %29 = load i32, i32* %3
+  call void @putch(i32 %29)
+  %30 = load i32, i32* %4
+  call void @putch(i32 %30)
+  %31 = load i32, i32* %25
+  %32 = add i32 %31, 1
+  store i32 %32, i32* %25
+  br label %L15
+
+L17:                                              ; preds = %L15
   ret i32 0
 }
 
