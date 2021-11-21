@@ -1,3 +1,4 @@
+int a = 1 < 2;
 int main() {
     const int c1 = 10 * 5 / 2;
     const int c2 = c1 / 2, c3 = c1 * 2;

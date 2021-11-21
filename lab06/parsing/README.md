@@ -50,4 +50,12 @@ def getIdentReg(String ident):
 
 首先得解决优化问题, 当检测到两边都是常量的时候, 不进行llvm代码输出, 而是直接进行优化。
 
-所以我们得定义一个optimier专门进行运算的优化。
+即
+
+```
+    if isConst(reg1) && isConst(reg2){
+        return reg1 op reg2;
+    }
+```
+
+同时在获取常量寄存器的值的时候, 不使用`load`指令,而是直接返回实际的数子
