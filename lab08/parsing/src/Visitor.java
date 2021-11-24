@@ -461,8 +461,8 @@ public class Visitor extends miniSysYBaseVisitor<String> {
             else{
                 reg2 = loadIdent(reg2);
                 Output.constGlobal(reg1, reg2);
+                identifier.addConstSet(reg1, reg2);
             }
-
         }
         else{
             Output.alloca(reg1); 
@@ -483,8 +483,8 @@ public class Visitor extends miniSysYBaseVisitor<String> {
             else{
                 reg2 = loadIdent(reg2);
                 Output.store(reg2, reg1);
+                identifier.addConstSet(reg1, reg2);
             }
-            identifier.addConstSet(reg1, reg2);
         }
         return null;
     }
@@ -501,7 +501,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         var reg = visit(ctx.constExp());
         if (identifier.getDim() > 0){
             identifier.addInitDate(reg);
-        }   
+        } 
         return reg;
     }
     // need to update
@@ -535,7 +535,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         if (!identifier.isConst(reg)){  // 右边必须是常量
             Output.exit("right is not const!");
         }
-        return reg;
+        return identifier.getConst(reg);
     }
     /**
      * varDecl: bType varDef  (',' varDef)* ';';
@@ -615,7 +615,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
             Output.exit("dim can't be bigger than shape");
         }
         if (shape.size() == 0){
-            return reg;
+            return identifier.getIdentRegister(ident);
         }
 
         String ty = "i32";

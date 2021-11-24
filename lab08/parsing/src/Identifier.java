@@ -228,6 +228,10 @@ public class Identifier {
         if (constTable.keySet().contains(reg)){
             return true;
         }
+
+        if (constArrayTable.keySet().contains(reg)){
+            return true;
+        }
         return false;
     }
     /**

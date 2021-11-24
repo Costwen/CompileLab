@@ -1,15 +1,70 @@
-int       a[4][2] = {};
-const int b[8]    = {9, 2, 3, 4, 1, 5, 4};
-int       c[4][2] = {{1, 2}, {3, 4}, {6, 3}, {7, 8}};
-int       e[4][2] = {{6, 7}, {4, 5}, {5, 6}, {9, 10}};
+const int TAPE_LEN = 65536, BUFFER_LEN = 32768;
+int tape[TAPE_LEN], program[BUFFER_LEN], ptr = 0;
+int main()
+{
+    int i = 0, len = getint();
+    while (i < len)
+    {
+        program[i] = getch();
+        i = i + 1;
+    }
+    program[i] = 0;
+    int cur_char, loop;
+    i = 0;
+    while (program[i])
+    {
+        cur_char = program[i];
+        if (cur_char == 62)
+        {
 
-int main() {
-    putint(e[2][1] + e[0][1] - e[0][0] + a[2][0]);
-    int a[4][2] = {};
-    int b[8]    = {1, 2, 3, 4, 5, 6, 7, 8};
-    int c[4][2] = {{1, 2}, {3, 4}, {5, 6}, {7, 8}};
-    putch(10);
-    int e[4][2] = {{b[6], b[7]}, {3, 4}, {5, 6}, {7, 8}};
-    putint(e[3][1] + e[0][0] + e[0][1] + a[2][0]);
+            ptr = ptr + 1;
+        }
+        else if (cur_char == 60)
+        {
+
+            ptr = ptr - 1;
+        }
+        else if (cur_char == 43)
+        {
+
+            tape[ptr] = tape[ptr] + 1;
+        }
+        else if (cur_char == 45)
+        {
+
+            tape[ptr] = tape[ptr] - 1;
+        }
+        else if (cur_char == 46)
+        {
+
+            putch(tape[ptr]);
+        }
+        else if (cur_char == 44)
+        {
+
+            tape[ptr] = getch();
+        }
+        else if (cur_char == 93 && tape[ptr])
+        {
+
+            loop = 1;
+            while (loop > 0)
+            {
+                i = i - 1;
+                cur_char = program[i];
+                if (cur_char == 91)
+                {
+
+                    loop = loop - 1;
+                }
+                else if (cur_char == 93)
+                {
+
+                    loop = loop + 1;
+                }
+            }
+        }
+        i = i + 1;
+    }
     return 0;
 }
