@@ -476,14 +476,10 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         }
         else{
             Output.alloca(reg1); 
-            String reg2 = visit(ctx.initVal());  
-            if (reg2.equals("void")){
-                Output.exit("none result");
-            }
+            String reg2 = visit(ctx.initVal()); 
+
             if (reg2 == null){
-                // var ptr = identifier.newRegister("i32*");
                 var initData = identifier.getInitData();
-                // Output.getelementptr(ptr, reg1, 0, 0);
                 for (int i = 0; i < initData.size(); i++){
                     var ptr_i = identifier.newRegister("i32*");
                     Output.getelementptr(ptr_i, reg1, 0, i);
@@ -493,6 +489,9 @@ public class Visitor extends miniSysYBaseVisitor<String> {
                 }
             }
             else{
+                if (reg2.equals("void")){
+                    Output.exit("none result");
+                }
                 reg2 = loadIdent(reg2);
                 Output.store(reg2, reg1);
             }

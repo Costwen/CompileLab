@@ -14,7 +14,7 @@ public class Tool {
         i32Params.add("i32");
         identifier.addFunc("putint", "void", i32Params);
         identifier.addFunc("putch", "void", i32Params);
-
+        
         var pi32Params = new ArrayList<String>();
         pi32Params.add("i32*");
         identifier.addFunc("getarray","i32", pi32Params);
@@ -100,7 +100,6 @@ public class Tool {
     static boolean checkFunc(String func, ArrayList<String> params){
         var funcType = identifier.getFuncType(func);
         var funcParams = identifier.getFuncParams(func);
- 
         if (funcType == null){
             return false;
         }
@@ -111,6 +110,7 @@ public class Tool {
         for (int i = 0; i < funcParams.size(); i++){
             var shape1 = identifier.getShape(funcParams.get(i));
             var shape2 = identifier.getShape(params.get(i));
+            
             if (shape1.size() != shape2.size()){
                 return false;
             }

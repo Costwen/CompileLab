@@ -155,7 +155,11 @@ public class Identifier {
     }
 
     public ArrayList<Integer> getShape(String reg){
-        return shapeMap.getOrDefault(reg, new ArrayList<Integer>());
+        var shape = new ArrayList<Integer>();
+        if (reg.equals("i32*")){
+            shape.add(-1);
+        }
+        return shapeMap.getOrDefault(reg, shape);
     }
     
     /**
