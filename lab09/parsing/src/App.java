@@ -24,7 +24,7 @@ public class App {
         FileReader r = new FileReader(file);
         File outputFile = new File(args[1]);
         
-        File outputFile = new File("main.ll");
+        // File outputFile = new File("main.ll");
         BufferedInputStream fis = new BufferedInputStream(new FileInputStream(file));
         BufferedReader reader = new BufferedReader(new InputStreamReader(fis,"utf-8"),1024);
         if(!outputFile.exists()){    
@@ -52,6 +52,7 @@ public class App {
         
         Visitor visitor = new Visitor();
         visitor.visit(tree);
+        reader.close();
         System.exit(0);
     }
 }
