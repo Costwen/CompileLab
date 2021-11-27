@@ -15,6 +15,13 @@ public class Identifier {
     private static HashMap<String, String> globalTable;
     private HashMap<String, String> identTable;
 
+    public HashMap<String, String> getIdentTable() {
+        // System.out.println(globalTable);
+        return identTable;
+    }
+    public void setIdentTable(HashMap<String, String> identTable) {
+        this.identTable = identTable;
+    }
     // funcAttr
     private static HashMap<String, String> funcType;
     private static HashMap<String, ArrayList<String>> funcParams;
@@ -80,16 +87,16 @@ public class Identifier {
         addFunc(ident, type, this.curParams);
     }
     public void addFunc(String ident, String type, ArrayList<String> params){
-        if (this.identTable.keySet().contains(ident)){
+        if (globalTable.keySet().contains(ident)){
             Output.exit("func already define");
         }
-        this.identTable.put(ident, "dso_local");
+        globalTable.put(ident, "dso_local");
         funcType.put(ident, type);
-        var paramsType = new ArrayList<String>();
-        for (var parma: params){
-            paramsType.add(this.getType(parma));
-        }
-        funcParams.put(ident, paramsType);
+        // var paramsType = new ArrayList<String>();
+        // for (var parma: params){
+        //     paramsType.add(this.getType(parma));
+        // }
+        funcParams.put(ident, params);
     }
     public ArrayList<String> getFuncParams(String ident){
         // System.out.println(funcParams);

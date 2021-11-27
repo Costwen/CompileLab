@@ -1,7 +1,5 @@
 import java.util.Map;
 
-import javax.swing.text.html.StyleSheet;
-
 import static java.util.Map.entry;
 
 import java.util.ArrayList;
@@ -102,24 +100,24 @@ public class Tool {
     static boolean checkFunc(String func, ArrayList<String> params){
         var funcType = identifier.getFuncType(func);
         var funcParams = identifier.getFuncParams(func);
-        // Output.println("func define %s %s", func, funcParams);
-        // Output.println("input params %s", params);
-        // for (var param: params){
-        //     System.out.printf("type %s \n",identifier.getType(param));
-        //     System.out.println(param);
-        //     System.out.printf("shape %s ",identifier.getShape(param));
-        // }
+ 
         if (funcType == null){
             return false;
         }
         if (funcParams.size() != params.size()){
             return false;
         }
+
         for (int i = 0; i < funcParams.size(); i++){
-            var type1 = funcParams.get(i);
-            var type2 = identifier.getType(params.get(i));
-            if (!type1.equals(type2)){
+            var shape1 = identifier.getShape(funcParams.get(i));
+            var shape2 = identifier.getShape(params.get(i));
+            if (shape1.size() != shape2.size()){
                 return false;
+            }
+            for (int j = 1; j < shape1.size(); j++){
+                if (shape1.get(i) != shape2.get(i)){
+                    return false;
+                }
             }
         }
         return true;

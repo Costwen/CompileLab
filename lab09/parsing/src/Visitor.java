@@ -103,9 +103,26 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         identifier.addFunc(ident, type);
         System.out.println(")");
         System.out.println("{");
+        var table = identifier.getIdentTable();
+        for (var s: table.entrySet()){
+            var _ident = s.getKey();
+            var _reg = s.getValue();
+            var _type = identifier.getType(_reg);
+            if (!_type.equals("i32")){
+                continue;
+            }
+            var newReg = identifier.newRegister(_type+"*");
+            identifier.addShape(newReg, identifier.getShape(_reg));
+            Output.alloca(newReg);
+            Output.store(_reg, newReg);
+            table.put(_ident, newReg);
+        }
         visit(ctx.block());
         if (type.equals("void"))
             Output.ret();
+        else{
+            Output.ret("0");
+        }
         System.out.println("}");
         identifier.removeTable();
         identifier.setGlobal(true);
@@ -173,6 +190,9 @@ public class Visitor extends miniSysYBaseVisitor<String> {
             Output.exit("left can't be const!");
         }
         String reg2 = visit(ctx.exp());
+        if (reg2.equals("void")){
+            Output.exit("none result");
+        }
         var shape1 = identifier.getShape(reg1);
         var shape2 = identifier.getShape(reg2);
         if (shape1.size() != shape2.size()){
@@ -342,7 +362,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
             Output.exit("funcParams don't match");
         }
         String funcType = identifier.getFuncType(func);
-        String reg0 = null;
+        String reg0 = "void";
         if (!funcType.equals("void")){
             reg0 = identifier.newRegister(funcType);
         }
@@ -442,7 +462,6 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         identifier.addShape(reg1, shape);
         if (identifier.isGlobal()){ // 全局模式
             String reg2 = visit(ctx.initVal());
-            
             if (reg2 == null){
                 Output.global(reg1, identifier.getInitData());
             }
@@ -458,11 +477,13 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         else{
             Output.alloca(reg1); 
             String reg2 = visit(ctx.initVal());  
+            if (reg2.equals("void")){
+                Output.exit("none result");
+            }
             if (reg2 == null){
                 // var ptr = identifier.newRegister("i32*");
                 var initData = identifier.getInitData();
                 // Output.getelementptr(ptr, reg1, 0, 0);
-                
                 for (int i = 0; i < initData.size(); i++){
                     var ptr_i = identifier.newRegister("i32*");
                     Output.getelementptr(ptr_i, reg1, 0, i);

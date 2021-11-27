@@ -28,7 +28,7 @@ public class Output {
     }
     public static void call(String func, List<String> list, String reg){
         String funcType = identifier.getFuncType(func);
-        if (reg != null){
+        if (!reg.equals("void")){
             System.out.printf("%s = ", reg);
         }
         System.out.printf("call %s @%s(", funcType, func);
