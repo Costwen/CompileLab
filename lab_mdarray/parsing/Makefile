@@ -15,7 +15,6 @@ link:
 	clang-10 -emit-llvm -S libsysy.c -o lib.ll
 	llvm-link-10 main.ll lib.ll -S -o out.ll
 	lli-10 out.ll
-	@echo $?
 	
 clean:
 	rm lib.ll

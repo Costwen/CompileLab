@@ -125,4 +125,8 @@ public class Output {
     public static void funcDef(String func, String funcType){
         System.out.printf("define dso_local %s @%s", funcType, func);
     }
+    public static void zeroinitializer(String reg, String mode){
+        var type = identifier.getType(reg);
+        println("%s = dso_local %s %s zeroinitializer", reg, mode, type.replace("*", ""));
+    }
 }

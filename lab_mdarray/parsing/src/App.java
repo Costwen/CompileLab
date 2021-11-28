@@ -23,10 +23,10 @@ public class App {
         
         FileReader r = new FileReader(file);
         File outputFile = new File(args[1]);
-        // File outputFile = new File("main.ll");
         
-        BufferedInputStream fis = new BufferedInputStream(new FileInputStream(file));
-        BufferedReader reader = new BufferedReader(new InputStreamReader(fis,"utf-8"),1024);
+        // File outputFile = new File("main.ll");
+        // BufferedInputStream fis = new BufferedInputStream(new FileInputStream(file));
+        // BufferedReader reader = new BufferedReader(new InputStreamReader(fis,"utf-8"),1024);
         if(!outputFile.exists()){    
             try {    
                 outputFile.createNewFile();    
@@ -36,11 +36,11 @@ public class App {
             }
         }
         System.setOut(new PrintStream(outputFile));
-        String str;
-        while((str = reader.readLine()) != null){
-            System.out.print(str);
-        }
-        reader.close();
+        // String str;
+        // while((str = reader.readLine()) != null){
+        //     System.out.print(str);
+        // }
+        // reader.close();
         CharStream inputStream = CharStreams.fromReader(r);
         miniSysYLexer lexer = new miniSysYLexer(inputStream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);

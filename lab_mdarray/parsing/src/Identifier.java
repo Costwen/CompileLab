@@ -82,7 +82,9 @@ public class Identifier {
     public ArrayList<String> getParams(){
         return this.curParams;
     }
-
+    public String getArrayTable(String reg, int pos){
+        return this.constArrayTable.get(reg).get(pos);
+    }
     public void addFunc(String ident, String type){
         addFunc(ident, type, this.curParams);
     }

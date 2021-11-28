@@ -421,7 +421,10 @@ public class Visitor extends miniSysYBaseVisitor<String> {
     public String visitVarDefIdent(miniSysYParser.VarDefIdentContext ctx) {
         // TODO Auto-generated method stub
         var ident = ctx.Ident().getText();
+        
+
         var shape = arrayProcess(ctx);
+        
         var reg = identifier.alloca(ident, shape);
         var shapeSize = identifier.getShape();
         var end = Tool.getShape(shapeSize, 0);
@@ -429,12 +432,13 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         for (int i = 0; i < end; i++){
             identifier.addInitDate("0");
         }
+        
         if (identifier.isGlobal()){
             if (shape.size() == 0){
                 Output.global(reg, "0");
             }
             else{
-                Output.global(reg, identifier.getInitData());
+                Output.zeroinitializer(reg, "global");
             }
         }
         else{
@@ -562,7 +566,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
 
         if (identifier.isGlobal()){ // 全局模式
             String reg2 = visit(ctx.constInitVal());
-            if (reg2 == null){
+            if (reg2 == null){  // 数组
                 Output.constGlobal(reg1, identifier.getInitData());
                 identifier.addConstSet(reg1, identifier.getInitData());
             }
@@ -573,12 +577,10 @@ public class Visitor extends miniSysYBaseVisitor<String> {
             }
         }
         else{
-            Output.alloca(reg1); 
+            Output.alloca(reg1);  
             String reg2 = visit(ctx.constInitVal());
             if (reg2 == null){
-                // var ptr = identifier.newRegister("i32*");
                 var initData = identifier.getInitData();
-                // Output.getelementptr(ptr, reg1, 0, 0);
                 for (int i = 0; i < initData.size(); i++){
                     var ptr_i = identifier.newRegister("i32*");
                     Output.getelementptr(ptr_i, reg1, 0, i);
@@ -587,6 +589,9 @@ public class Visitor extends miniSysYBaseVisitor<String> {
                     Output.store(tmp2, ptr_i);
                 }
                 identifier.addConstSet(reg1, identifier.getInitData());
+                // System.out.println(reg1);
+                // System.out.println(identifier.getInitData());
+                
             }
             else{
                 reg2 = loadIdent(reg2);
@@ -750,9 +755,9 @@ public class Visitor extends miniSysYBaseVisitor<String> {
             Output.getelementptr(ptr_i, reg, result);
         }
         identifier.addShape(ptr_i, subShape);
-        if (identifier.isConst(reg)){
-            identifier.addConstSet(ptr_i, "0");
-        }
+        // if (identifier.isConst(reg) && ){
+        //     identifier.addConstSet(ptr_i, );
+        // }
         return ptr_i;
     }
     /**
