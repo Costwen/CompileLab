@@ -3,7 +3,7 @@ int inc_a()
 {
     int b = a;
     b = b + 1;
-    a = b;
+    a = b;`
     return a;
 }
 int main()
