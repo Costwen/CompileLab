@@ -778,8 +778,8 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         var L3 = identifier.newRegister("label");
         identifier.pushL0L1L2(L3, L1, L2);
         var cond = visit(ctx.cond());
-
         cond = loadIdent(cond);
+        
         cond = convert(cond, "i1");
         Output.brLabel(cond, L1, L2);
         Output.label(L1);
@@ -955,7 +955,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
         String cond2 = visit(ctx.eqExp());
         cond2 = loadIdent(cond2);
         cond2 = convert(cond2, ty);
-        Output.brLabel(cond2, L1, L2);
+        // Output.brLabel(cond2, L1, L2);
         return cond2;
     }
     /**
