@@ -3,49 +3,126 @@ source_filename = "llvm-link"
 target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
-@global_variable = dso_local global i32 0
+@a = dso_local global i32 -1
+@b = dso_local global i32 1
 @.str = private unnamed_addr constant [3 x i8] c"%d\00", align 1
 @.str.1 = private unnamed_addr constant [3 x i8] c"%c\00", align 1
 @.str.2 = private unnamed_addr constant [4 x i8] c"%d:\00", align 1
 @.str.3 = private unnamed_addr constant [4 x i8] c" %d\00", align 1
 @.str.4 = private unnamed_addr constant [2 x i8] c"\0A\00", align 1
 
-define dso_local i32 @add() {
-  %x1 = load i32, i32* @global_variable
-  %x2 = add i32 %x1, 1
-  store i32 %x2, i32* @global_variable
-  %x3 = load i32, i32* @global_variable
-  ret i32 %x3
+define dso_local i32 @inc_a() {
+  %x1 = alloca i32
+  %x2 = load i32, i32* @a
+  store i32 %x2, i32* %x1
+  %x3 = load i32, i32* %x1
+  %x4 = add i32 %x3, 1
+  store i32 %x4, i32* %x1
+  %x5 = load i32, i32* %x1
+  store i32 %x5, i32* @a
+  %x6 = load i32, i32* @a
+  ret i32 %x6
 
 1:                                                ; No predecessors!
   ret i32 0
 }
 
 define dso_local i32 @main() {
+  %x7 = alloca i32
+  store i32 5, i32* %x7
   br label %L0
 
-L0:                                               ; preds = %L1, %0
-  %x4 = call i32 @add()
-  %x5 = icmp eq i32 1, %x4
-  br i1 %x5, label %L1, label %L3
+L0:                                               ; preds = %L10, %0
+  %x8 = load i32, i32* %x7
+  %x9 = icmp sge i32 %x8, 0
+  br i1 %x9, label %L1, label %L2
 
-L3:                                               ; preds = %L0
-  %x6 = icmp eq i32 1, 0
-  br i1 %x6, label %L1, label %L2
+L1:                                               ; preds = %L0
+  %x10 = call i32 @inc_a()
+  %x11 = icmp ne i32 %x10, 0
+  br i1 %x11, label %L7, label %L4
+
+L7:                                               ; preds = %L1
+  %x12 = call i32 @inc_a()
+  %x13 = icmp ne i32 %x12, 0
+  br i1 %x13, label %L3, label %L4
 
 1:                                                ; No predecessors!
-  br i1 %x6, label %L1, label %L2
+  br i1 %x13, label %L6, label %L4
 
-L1:                                               ; preds = %1, %L3, %L0
-  %x7 = load i32, i32* @global_variable
-  call void @putint(i32 %x7)
-  br label %L0
-
-L2:                                               ; preds = %1, %L3
-  %x8 = load i32, i32* @global_variable
-  ret i32 %x8
+L6:                                               ; preds = %1
+  %x14 = call i32 @inc_a()
+  %x15 = icmp ne i32 %x14, 0
+  br i1 %x15, label %L3, label %L4
 
 2:                                                ; No predecessors!
+  br i1 %x15, label %L3, label %L4
+
+L3:                                               ; preds = %2, %L6, %L7
+  %x16 = load i32, i32* @a
+  call void @putint(i32 %x16)
+  call void @putch(i32 32)
+  %x17 = load i32, i32* @b
+  call void @putint(i32 %x17)
+  call void @putch(i32 10)
+  br label %L5
+
+L4:                                               ; preds = %2, %L6, %1, %L7, %L1
+  br label %L5
+
+L5:                                               ; preds = %L4, %L3
+  %x18 = call i32 @inc_a()
+  %x19 = icmp slt i32 %x18, 14
+  br i1 %x19, label %L8, label %L11
+
+L11:                                              ; preds = %L5
+  %x20 = call i32 @inc_a()
+  %x21 = icmp ne i32 %x20, 0
+  br i1 %x21, label %L12, label %L9
+
+L12:                                              ; preds = %L11
+  %x22 = call i32 @inc_a()
+  %x23 = call i32 @inc_a()
+  %x24 = sub i32 %x22, %x23
+  %x25 = add i32 %x24, 1
+  %x26 = icmp ne i32 %x25, 0
+  br i1 %x26, label %L8, label %L9
+
+3:                                                ; No predecessors!
+  br i1 %x26, label %L8, label %L9
+
+4:                                                ; No predecessors!
+  br i1 %x26, label %L8, label %L9
+
+L8:                                               ; preds = %4, %3, %L12, %L5
+  %x27 = load i32, i32* @a
+  call void @putint(i32 %x27)
+  call void @putch(i32 10)
+  %x28 = load i32, i32* @b
+  %x29 = mul i32 %x28, 2
+  store i32 %x29, i32* @b
+  br label %L10
+
+L9:                                               ; preds = %4, %3, %L12, %L11
+  %x30 = call i32 @inc_a()
+  br label %L10
+
+L10:                                              ; preds = %L9, %L8
+  %x31 = load i32, i32* %x7
+  %x32 = sub i32 %x31, 1
+  store i32 %x32, i32* %x7
+  br label %L0
+
+L2:                                               ; preds = %L0
+  %x33 = load i32, i32* @a
+  call void @putint(i32 %x33)
+  call void @putch(i32 32)
+  %x34 = load i32, i32* @b
+  call void @putint(i32 %x34)
+  call void @putch(i32 10)
+  ret i32 0
+
+5:                                                ; No predecessors!
   ret i32 0
 }
 

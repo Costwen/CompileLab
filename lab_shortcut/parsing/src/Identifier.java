@@ -330,6 +330,12 @@ public class Identifier {
         this.l1Stack.push(L1);
         this.l2Stack.push(L2);
     }
+    public void pushL2(String L2){
+        this.l2Stack.push(L2);
+    }
+    public void popL2(){
+        this.l2Stack.pop();
+    }
     public void popL0L1L2(){
         this.l0Stack.pop();
         this.l1Stack.pop();

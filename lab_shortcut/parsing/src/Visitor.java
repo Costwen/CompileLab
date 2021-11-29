@@ -913,10 +913,13 @@ public class Visitor extends miniSysYBaseVisitor<String> {
     public String visitLOrExplOrExplAndExp(miniSysYParser.LOrExplOrExplAndExpContext ctx) {
         // TODO Auto-generated method stub
         var _L1 = identifier.newRegister("label");
+        // System.out.println(_L1);
         var L1 = identifier.peekL1();
         var L2 = identifier.peekL2();
         String ty = "i1";
+        identifier.pushL2(_L1);
         String cond1 = visit(ctx.lOrExp());
+        identifier.popL2();
         cond1 = loadIdent(cond1);
         cond1 = convert(cond1, ty);
         Output.brLabel(cond1, L1, _L1);
@@ -941,7 +944,7 @@ public class Visitor extends miniSysYBaseVisitor<String> {
     public String visitLAndExpLAndExpEqExp(miniSysYParser.LAndExpLAndExpEqExpContext ctx) {
         // TODO Auto-generated method stub
         var _L1 = identifier.newRegister("label");
-        var L1 = identifier.peekL0();
+        var L1 = identifier.peekL1();
         var L2 = identifier.peekL2();
         String ty = "i1";
         String cond1 = visit(ctx.lAndExp());

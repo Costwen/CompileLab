@@ -65,4 +65,20 @@ def visitOrNode():
     L2: S2
 ```
 
-当同样在计算L1, L2的时候直接进行
+但是上面的假设能够成立必须是得每次最左边的值能够直接用表达式算出来。
+
+所以我们得在`visitEqExp`的时候改一下访问的东西。
+
+```llvm
+    if (A and B) {S1} else{S2} S3
+    br i1 %cond, label %L1, label %L2
+    则L1是B的代码段B的入口
+    L2 是代码段S2的入口
+
+    if (A and B || C and D) {S1} else{S2} S3
+    br i1 %cond, label %L1, label %L2
+    
+    则L1是B的代码段B的入口
+    L2 是代码段C的入口
+
+```
